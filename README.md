@@ -7,7 +7,7 @@
 신현호 @[hyeonho9877](https://github.com/hyeonho9877)<br>
 김도연 @[joyfulviper](https://github.com/joyfulviper)<br>
 이동엽 @[ldongyeop2](https://github.com/ldongyeop2)
-------------------------------------
+
 
 ## ● Software Requirements
 - 로그인을 통해 인증된 사용자만 수강신청 서비스에 접근할 수 있어야함
@@ -32,6 +32,15 @@
 - 수강신청 페이지의 하단에는 모든 탭에서 동일하게 수강신청 리스트를 확인할 수 있다.
 - 수강신청 리스트에서 나타나는 정보는 수강신청 내역에서 각 강의별 정보와 동일하게 표시된다.
 - 수강신청 리스트에서 과목번호를 직접 입력하여 수강신청을 진행할 수 있다.
+
+## ● Demanded Web Page
+- 로그인 페이지
+- 수강신청 메인 (공지사항 탭)
+- 개설교과목 조회
+- 소망가방 내역조회
+- 수강신청 내역조회
+- 수강신청
+- 소망가방 신청
 
 # Getting Started with Create React App
 
