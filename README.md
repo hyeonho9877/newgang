@@ -1,4 +1,12 @@
-# 월, 금
+# 회의 날짜
+
+
+## ● Members
+
+신현호 @[hyeonho9877](https://github.com/hyeonho9877)<br>
+김도연 @[joyfulviper](https://github.com/joyfulviper)<br>
+이동엽 @[ldongyeop2](https://github.com/ldongyeop2)
+------------------------------------
 
 # Getting Started with Create React App
 
