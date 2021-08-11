@@ -4,9 +4,9 @@
 
 ## ● Members
 
-신현호 @[hyeonho9877](https://github.com/hyeonho9877)<br>
-김도연 @[joyfulviper](https://github.com/joyfulviper)<br>
-이동엽 @[ldongyeop2](https://github.com/ldongyeop2)
+신현호 (Spring Master) @[hyeonho9877](https://github.com/hyeonho9877)<br>
+김도연 (Spring Master) @[joyfulviper](https://github.com/joyfulviper)<br>
+이동엽 (React Master) @[ldongyeop2](https://github.com/ldongyeop2)
 
 
 ## ● Software Requirements
