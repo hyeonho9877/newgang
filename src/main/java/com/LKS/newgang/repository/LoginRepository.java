@@ -1,7 +1,7 @@
 package com.LKS.newgang.repository;
 
-import org.springframework.stereotype.Repository;
+import com.LKS.newgang.domain.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class LoginRepository {
+public interface LoginRepository extends JpaRepository<Student,Integer>{
 }
