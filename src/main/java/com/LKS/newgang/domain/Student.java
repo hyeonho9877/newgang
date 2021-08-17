@@ -1,29 +1,27 @@
 package com.LKS.newgang.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Student {
 
     @Id
+    @Column(name = "std_no", nullable = false)
     private int no;
     private String password;
     private String greatStudent;
     private int grade;
     private int semester;
 
-    @JoinColumn(name = "campus")
+    @JoinColumn(name = "campus_name")
     @ManyToOne
     private Campus campus;
 
-    @JoinColumn(name = "colleague")
+    @JoinColumn(name = "colleague_name")
     @ManyToOne
     private Colleague colleague;
 
-    @JoinColumn(name = "department")
+    @JoinColumn(name = "department_name")
     @ManyToOne
     private Department department;
     private String name;

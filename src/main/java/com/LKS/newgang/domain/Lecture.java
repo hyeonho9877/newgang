@@ -1,19 +1,17 @@
 package com.LKS.newgang.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
 @Entity
 public class Lecture {
     @Id
+    @Column(name = "lec_no", nullable = false)
     private int no;
     private String classification;
     private String time;
     private String professor;
-    @JoinColumn(name = "department")
+    @JoinColumn(name = "department_name")
     @ManyToOne
     private Department department;
     private int grade;
