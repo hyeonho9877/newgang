@@ -1,6 +1,8 @@
 package com.LKS.newgang.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Colleague {
@@ -8,15 +10,15 @@ public class Colleague {
     @Id
     @Column(name = "colleague_name", nullable = false)
     private String colleagueName;
-    @JoinColumn(name = "campus_name")
+    @JoinColumn(name = "departmentName")
     @ManyToOne
-    private Campus campus;
+    private Department departmentName;
+
+    public Department getDepartmentName() {
+        return departmentName;
+    }
 
     public String getColleagueName() {
         return colleagueName;
-    }
-
-    public Campus getCampus() {
-        return campus;
     }
 }
