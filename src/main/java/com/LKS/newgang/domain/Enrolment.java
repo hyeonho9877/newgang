@@ -7,10 +7,10 @@ public class Enrolment {
     @Id
     private int no;
     @JoinColumn(name = "std_no")
-    @ManyToMany
+    @ManyToOne
     private Student std_no;
-    @JoinColumn
-    @ManyToMany
+    @JoinColumn(name = "lec_no")
+    @ManyToOne
     private Lecture lec_no;
 
     public int getNo() {
