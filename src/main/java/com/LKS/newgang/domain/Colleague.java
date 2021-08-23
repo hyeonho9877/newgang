@@ -1,8 +1,11 @@
 package com.LKS.newgang.domain;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
 public class Colleague {
 
     @Id
@@ -12,6 +15,10 @@ public class Colleague {
     @JoinColumn(name = "campus_name")
     @ManyToOne
     private Campus campus;
+
+    public Colleague(String colleagueName){
+        this.colleagueName = colleagueName;
+    }
 
     public Campus getCampus() {
         return campus;
