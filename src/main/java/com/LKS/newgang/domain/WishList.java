@@ -3,9 +3,9 @@ package com.LKS.newgang.domain;
 import javax.persistence.*;
 
 @Entity
-public class Enrolment {
+public class WishList {
     @Id
-    @Column(name = "enr_no")
+    @Column(name = "wish_no")
     private int no;
 
     @JoinColumn(name = "std_no")

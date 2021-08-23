@@ -1,37 +1,40 @@
 package com.LKS.newgang.controller;
-import com.LKS.newgang.domain.Campus;
-import com.LKS.newgang.domain.Lecture;
+
 import com.LKS.newgang.service.SearchService;
-import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Optional;
 
 @Controller
 public class SearchController {
+
     @Autowired
     SearchService searchService;
+
     @RequestMapping("search")
     public String lectureList(Model model) {
-        List<Lecture> lectureList = searchService.findByDepartment("asdf");
-        model.addAttribute("lectures", lectureList);
-        return "search/lecturelist";
+        return null;
+    }
+
+    @PostMapping("/getStudentBelonging")
+    @ResponseBody
+    public ResponseEntity<?> getStdBelong(HttpSession session) {
+        Optional<HashMap<String, String>> stdInfo = searchService.stdBelonging(String.valueOf(session.getAttribute("stdID")));
+
+        final ResponseEntity<?>[] result = new ResponseEntity<?>[1];
+
+        stdInfo.ifPresentOrElse(info -> {
+            result[0] = ResponseEntity.ok(info);
+        }, () -> result[0] = ResponseEntity.badRequest().build());
+
+        return result[0];
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

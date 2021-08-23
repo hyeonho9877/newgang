@@ -1,22 +1,27 @@
 package com.LKS.newgang.domain;
 
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Setter
+@NoArgsConstructor
 public class Colleague {
 
     @Id
     @Column(name = "colleague_name", nullable = false)
     private String colleagueName;
-    @JoinColumn(name = "campus_name", nullable = false)
-    @ManyToOne
-    private Campus campus_name;
 
-    public Campus getCampus_name() {
-        return campus_name;
+    @JoinColumn(name = "campus_name")
+    @ManyToOne
+    private Campus campus;
+
+    public Colleague(String colleagueName){
+        this.colleagueName = colleagueName;
+    }
+
+    public Campus getCampus() {
+        return campus;
     }
 
     public String getColleagueName() {

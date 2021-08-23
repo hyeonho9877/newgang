@@ -1,28 +1,30 @@
 package com.LKS.newgang.domain;
 
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
+@Setter
 public class Student {
 
     @Id
+    @Column(name = "std_no", nullable = false)
     private int no;
     private String password;
     private String greatStudent;
     private int grade;
     private int semester;
 
-    @JoinColumn(name = "campus")
+    @JoinColumn(name = "campus_name")
     @ManyToOne
     private Campus campus;
 
-    @JoinColumn(name = "colleague")
+    @JoinColumn(name = "colleague_name")
     @ManyToOne
     private Colleague colleague;
 
-    @JoinColumn(name = "department")
+    @JoinColumn(name = "department_name")
     @ManyToOne
     private Department department;
     private String name;
@@ -30,14 +32,6 @@ public class Student {
     @JoinColumn(name="major_name")
     @ManyToOne
     private Major major;
-
-    @JoinColumn(name = "lecture_name")
-    @OneToMany
-    private List<Lecture> lectureList = new ArrayList<>();
-
-    public List<Lecture> getLectureList() {
-        return lectureList;
-    }
 
     public String getPassword() {
         return password;
