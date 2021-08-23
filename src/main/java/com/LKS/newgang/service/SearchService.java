@@ -1,8 +1,11 @@
 package com.LKS.newgang.service;
 
 
+import com.LKS.newgang.domain.Campus;
+import com.LKS.newgang.domain.Colleague;
+import com.LKS.newgang.domain.Department;
 import com.LKS.newgang.domain.Lecture;
-import com.LKS.newgang.repository.SearchRepository;
+import com.LKS.newgang.repository.LectureRepository;
 import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +18,12 @@ import java.util.List;
 @Service
 public class SearchService {
     @Autowired
-    private SearchRepository searchRepository;
+    private LectureRepository lectureRepository;
 
     public List<Lecture> findByDepartment(String departmentName) {
         List<Lecture> lectures = new ArrayList<>();
-        searchRepository.findByDepartment(departmentName).forEach(e -> lectures.add(e));
+        lectureRepository.findByDepartment(departmentName).forEach(e -> lectures.add(e));
         return lectures;
-
-    }
-
-    public List<Lecture> findByDepartment() {
-
-    }
-
-    public List<Lecture> findByColleague() {
 
     }
 }

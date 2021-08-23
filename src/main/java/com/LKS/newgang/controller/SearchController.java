@@ -1,4 +1,5 @@
 package com.LKS.newgang.controller;
+import com.LKS.newgang.domain.Campus;
 import com.LKS.newgang.domain.Lecture;
 import com.LKS.newgang.service.SearchService;
 import org.hibernate.service.spi.InjectService;
@@ -15,6 +16,22 @@ public class SearchController {
     SearchService searchService;
     @RequestMapping("search")
     public String lectureList(Model model) {
-
+        List<Lecture> lectureList = searchService.findByDepartment("asdf");
+        model.addAttribute("lectures", lectureList);
+        return "search/lecturelist";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

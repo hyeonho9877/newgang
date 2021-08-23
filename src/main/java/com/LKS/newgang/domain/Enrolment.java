@@ -1,11 +1,14 @@
 package com.LKS.newgang.domain;
 
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Setter
 public class Enrolment {
     @Id
     private int no;

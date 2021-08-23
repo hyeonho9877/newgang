@@ -1,5 +1,8 @@
 package com.LKS.newgang.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -7,68 +10,25 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
+@Setter
+@Getter
 public class Lecture {
     @Id
-    private int no;
-    private String classification;
-    private String time;
-    private String professor;
+    private int no; //과목번호
+    private String classification; //구분
+    private String lec_name; //과목이름
+    private String time; // 교시
+    private String professor; //교수
     @JoinColumn(name = "department")
     @ManyToOne
-    private Department department;
-    private int grade;
-    private int max_grade;
-    private int max_other_grade;
-    private int max_transfer;
-    private int curr_grade;
-    private int curr_other_grade;
-    private int curr_transfer;
+    private Department department; //학과
+    private int grade; //학년
+    private int max_grade; // n학년 인원중 초과인원
+    private int max_other_grade; // n학년 인원이 아닌 사람중 초과된 인원
+    private int max_transfer; // 초과된 편입생
+    private int curr_grade; // 현재 신청 인원
+    private int curr_other_grade; //n학년이 아닌사람중에 신청한사람
+    private int curr_transfer; //
 
-    public int getNo() {
-        return no;
-    }
 
-    public String getClassification() {
-        return classification;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public String getProfessor() {
-        return professor;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public int getGrade() {
-        return grade;
-    }
-
-    public int getMax_grade() {
-        return max_grade;
-    }
-
-    public int getMax_other_grade() {
-        return max_other_grade;
-    }
-
-    public int getMax_transfer() {
-        return max_transfer;
-    }
-
-    public int getCurr_grade() {
-        return curr_grade;
-    }
-
-    public int getCurr_other_grade() {
-        return curr_other_grade;
-    }
-
-    public int getCurr_transfer() {
-        return curr_transfer;
-    }
 }

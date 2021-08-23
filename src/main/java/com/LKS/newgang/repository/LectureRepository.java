@@ -8,11 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SearchRepository extends JpaRepository<Lecture, Long> {
-
-    public List<Lecture> findByCampus(String campusName);
+public
+interface LectureRepository extends JpaRepository<Lecture, Integer> {
 
     public List<Lecture> findByDepartment(String departmentName);
 
-    public List<Lecture> findByColleague(String ColleagueName);
 }
