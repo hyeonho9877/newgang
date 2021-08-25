@@ -3,6 +3,7 @@ package com.LKS.newgang.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,7 @@ public class MainController {
      * @return 세션의 연장이 성공하면 ok, 실패하면 badRequest 리턴
      */
     @ResponseBody
-    @GetMapping("/resetSession")
+    @PostMapping("/resetSession")
     public ResponseEntity<?> resetLoginSession(HttpSession session) {
         try {
             session.setMaxInactiveInterval(1); // 세션의 만료 시간을 재설정

@@ -1,12 +1,14 @@
 package com.LKS.newgang.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Lecture {
 
     @Id
@@ -26,4 +28,8 @@ public class Lecture {
     private int curr_grade;
     private int curr_other_grade;
     private int curr_transfer;
+
+    public Lecture(int lectureNo){
+        this.no=lectureNo;
+    }
 }

@@ -1,7 +1,9 @@
 package com.LKS.newgang;
 
+import com.LKS.newgang.domain.WishList;
 import com.LKS.newgang.service.LoginService;
 import com.LKS.newgang.service.SearchService;
+import com.LKS.newgang.service.WishListService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +25,9 @@ class NewgangApplicationTests {
 
     @Autowired
     private SearchService searchService;
+
+    @Autowired
+    private WishListService wishListService;
 
     @Test
     void 로그인_TC01() {
@@ -98,4 +103,50 @@ class NewgangApplicationTests {
         if(hashMap.isPresent())
             fail("비어있어야함");
     }
+
+    @Test
+    void 소망가방신청_TC01(){
+        assertThat(wishListService.apply("201713883","1")).isEqualTo(true);
+    }
+
+    @Test
+    void 소망가방신청_TC02(){
+        assertThat(wishListService.apply("999999999","1")).isEqualTo(false);
+    }
+
+    @Test
+    void 소망가방신청_TC03(){
+        assertThat(wishListService.apply("201713883","4")).isEqualTo(false);
+    }
+
+    @Test
+    void 소망가방신청_TC04(){
+        assertThat(wishListService.apply("STRING","1")).isEqualTo(false);
+    }
+
+    @Test
+    void 소망가방조회(){
+        wishlistInquiry_TC01();
+        wishlistInquiry_TC02();
+        wishlistInquiry_TC03();
+    }
+
+    @Test
+    void wishlistInquiry_TC01(){
+        List<WishList> result = wishListService.getList("201713883");
+        assertThat(result.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void wishlistInquiry_TC02(){
+        List<WishList> result = wishListService.getList("999999999");
+        assertThat(result.size()).isEqualTo(0);
+    }
+
+    @Test
+    void wishlistInquiry_TC03(){
+        List<WishList> result = wishListService.getList("STRING");
+        assertThat(result.size()).isEqualTo(0);
+    }
+
 }

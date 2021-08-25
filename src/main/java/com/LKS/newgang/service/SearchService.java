@@ -36,6 +36,11 @@ public class SearchService {
         return null;
     }
 
+    /**
+     * 교과목 조회 시, 학생의 DB 정보를 바탕으로 소속 정보를 검색
+     * @param stdID 조회할 학생의 학번
+     * @return DB에 존재하는 학생의 소속 정보
+     */
     public Optional<HashMap<String,String>> stdBelonging(String stdID) {
         HashMap<String, String> map = new HashMap<>();
         try {
@@ -57,6 +62,5 @@ public class SearchService {
         }catch(Exception e){
             return Optional.empty();
         }
-
     }
 }
