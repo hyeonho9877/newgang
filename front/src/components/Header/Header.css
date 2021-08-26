@@ -1,0 +1,25 @@
+/* container */
+.mainContainer { border-bottom: 1px solid #000; display: flex;
+    font-family: "appleL", serif; justify-content: space-between;
+    min-width: 1000px; position: fixed; width: 100%; padding: 15px 60px; box-sizing: border-box; background-color: #fff;
+}
+.headerFront { display: flex; align-items: center;}
+
+/* headerFront */
+.headerLogo { width: 157px; height: 31px; margin-right: 40px;}
+.limitTime { font-size: 22px; display: flex; align-items: flex-end; position: relative;}
+.limitTime::before{ content:""; border-left: 1px solid #a0a0a0; position: absolute; width: 1px; height: 21px; left:-29px; top:3px}
+.resetTimeButton { border: none; background-color: #0058A9; color:#fff; margin-left: 15px; cursor: pointer; border-radius: 3px;
+    font-size: 13px; padding: 4px 10px;
+}
+.resetTimeButton:hover { background-color: #014280;}
+.limitTime strong { color:#F15922;}
+
+/* headerBack */
+.headerBack{ display: flex; align-items: center;}
+.userInfo{ display: flex; align-items: center;}
+.userIcon{ width: 35px; height: 35px; display: block; }
+.loginAndOutButton{font-size: 13px; padding: 4px 10px; border:none; border-radius: 3px; margin-left: 15px; cursor: pointer;
+    background-color: #00AB5B; color: #fff;
+}
+.loginAndOutButton:hover{background-color: #018648;}
