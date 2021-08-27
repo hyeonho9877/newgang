@@ -2,6 +2,7 @@ package com.LKS.newgang.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@Setter
 public class Lecture {
 
     @Id
@@ -21,6 +23,9 @@ public class Lecture {
     @JoinColumn(name = "department_name")
     @ManyToOne
     private Department department;
+    @JoinColumn(name = "major_name")
+    @ManyToOne
+    private Major major;
     private int grade;
     private int max_grade;
     private int max_other_grade;

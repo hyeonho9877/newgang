@@ -1,11 +1,15 @@
 package com.LKS.newgang.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 public class Major {
     @Id
     @Column(name = "major_name", nullable = false)

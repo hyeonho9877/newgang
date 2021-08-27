@@ -1,5 +1,7 @@
 package com.LKS.newgang;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,4 +11,5 @@ public class NewgangApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NewgangApplication.class, args);
 	}
+
 }

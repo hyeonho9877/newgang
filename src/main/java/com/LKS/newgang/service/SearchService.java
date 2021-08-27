@@ -1,7 +1,9 @@
 package com.LKS.newgang.service;
 
 
+import com.LKS.newgang.domain.Department;
 import com.LKS.newgang.domain.Lecture;
+import com.LKS.newgang.domain.Major;
 import com.LKS.newgang.domain.Student;
 import com.LKS.newgang.repository.SearchRepository;
 import com.LKS.newgang.repository.StudentRepository;
@@ -21,20 +23,18 @@ import java.util.Optional;
 public class SearchService {
 
     @Autowired
-    private SearchRepository searchRepository;
+    private final SearchRepository searchRepository;
 
     private final StudentRepository studentRepository;
 
-    public List<Lecture> findByDepartment(String departmentName) {
-        List<Lecture> lectures = new ArrayList<>();
-        searchRepository.findByDepartment(departmentName).forEach(e -> lectures.add(e));
-        return lectures;
-
+    public List<Lecture> findByDepartment(String department) {
+        return searchRepository.findByDepartment(department);
     }
 
-    public List<Lecture> findByDepartment() {
-        return null;
+    public List<Lecture> findByMajor(String major) {
+        return searchRepository.findByMajor(major);
     }
+
 
     /**
      * 교과목 조회 시, 학생의 DB 정보를 바탕으로 소속 정보를 검색

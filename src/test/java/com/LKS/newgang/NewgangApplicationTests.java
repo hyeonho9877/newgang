@@ -1,6 +1,10 @@
 package com.LKS.newgang;
 
 import com.LKS.newgang.domain.WishList;
+import com.LKS.newgang.domain.Department;
+import com.LKS.newgang.domain.Lecture;
+import com.LKS.newgang.domain.Major;
+import com.LKS.newgang.repository.SearchRepository;
 import com.LKS.newgang.service.LoginService;
 import com.LKS.newgang.service.SearchService;
 import com.LKS.newgang.service.WishListService;
@@ -9,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import java.net.DatagramPacket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +36,8 @@ class NewgangApplicationTests {
     @Autowired
     private WishListService wishListService;
 
+    @Autowired
+    private SearchRepository searchRepository;
     @Test
     void 로그인_TC01() {
         assertThat(loginService.authStudent(201713883, "201713883")).isEqualTo(true);
@@ -102,6 +111,25 @@ class NewgangApplicationTests {
 
         if(hashMap.isPresent())
             fail("비어있어야함");
+    }
+
+    @Test
+    void 과목검색테스트() {
+        Lecture lecture = new Lecture();
+        Department department = new Department();
+        Major major = new Major();
+
+        department.setDepartmentName("컴퓨터공학부");
+        major.setMajorName("컴퓨터공학");
+        lecture.setLectureName("컴퓨터과학개론");
+
+        lecture.setDepartment(department);
+        lecture.setMajor(major);
+        searchRepository.save(lecture);
+        List<Lecture> lectureList = new ArrayList<>();
+        lectureList.add(lecture);
+        assertThat(lectureList.equals(searchService.findByDepartment(department.getDepartmentName())));
+        assertThat(lectureList.equals(searchService.findByMajor(major.getMajorName())));
     }
 
     @Test
