@@ -1,17 +1,15 @@
 package com.LKS.newgang.controller;
 
+import com.LKS.newgang.domain.Lecture;
 import com.LKS.newgang.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class SearchController {
@@ -19,8 +17,16 @@ public class SearchController {
     @Autowired
     SearchService searchService;
 
-    @RequestMapping("search")
-    public String lectureList(Model model) {
+    @GetMapping("/search")
+    public String lectureListbyDept(@RequestParam String department_name, Model model) {
+        List<Lecture> lectureList = searchService.findByDepartment(department_name);
+        model.addAttribute("lectureList", lectureList);
+        return null;
+    }
+    @GetMapping("/search")
+    public String lectureListbyMajor(@RequestParam String major_name, Model model) {
+        List<Lecture> lectureList = searchService.findByMajor(major_name);
+        model.addAttribute("lectureList", lectureList);
         return null;
     }
 
