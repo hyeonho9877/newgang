@@ -2,9 +2,12 @@ package com.LKS.newgang.controller;
 
 import com.LKS.newgang.service.LoginService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +17,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000/")
 public class LoginController {
 
     private final LoginService loginService;
@@ -25,16 +29,16 @@ public class LoginController {
      * @return 로그인에 성공할 시 메인 페이지로 이동, 실패시 새로고침->Model에 로그인에 실패하였음을 알려주는 데이터 전송
      */
     @PostMapping("/auth")
-    public String auth(HttpSession session, LoginForm form, Model model){
+    public ResponseEntity<?> auth(HttpSession session, @RequestBody LoginForm form){
+        System.out.println("hello");
         if(loginService.authStudent(form.getUserID(), form.getPassword())){
             // set max session time to 10 min
             session.setMaxInactiveInterval(600);
             session.setAttribute("stdID", form.getUserID());
             // return page
-            return "main";
+            return ResponseEntity.ok().build();
         } else{
-            model.addAttribute("error","로그인 실패");
-            return "redirect:/";
+            return ResponseEntity.badRequest().body("로그인 실패");
         }
 
     }

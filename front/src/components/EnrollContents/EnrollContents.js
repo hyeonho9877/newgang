@@ -43,6 +43,7 @@ function EnrollContents() {
                 오아이스도 온갖 보는 소리다.이것은 인간의 것이다. 낙원을 방황하여도, 인류의 있으며, 그들을 불러 풍부하게 뜨고, 많이 황금시대다.
                 피어나기 할지니, 얼마나 황금시대다.
             </div>
+
             <div className="selectbox">
                 <InputLabel id="label">캠퍼스</InputLabel>
                 <Select labelId="label" id="select" value="20">

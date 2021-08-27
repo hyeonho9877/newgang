@@ -5,9 +5,25 @@ import password from '../../img/password.png';
 import info from '../../img/info.png'
 import { Link } from 'react-router-dom';
 import { React, useState }from 'react';
+import axios from "axios";
 
 
 function LoginForm() {
+
+    function auth(e) {
+        e.preventDefault();
+
+        const id = document.querySelector(".userID").value;
+        const pw = document.querySelector(".userPW").value;
+
+        const data = {"userID": id, "password": pw};
+        axios.post("/auth",data).then((Response)=>{
+            console.log(Response.data);
+        }).catch((Error)=>{
+            console.log(Error);
+        })
+    }
+
 
     return (
         <div className="LoginPage">
@@ -23,7 +39,7 @@ function LoginForm() {
                 </div>
             </div>
 
-            <form name="login" className="login-form" autoComplete="on" action="" method="post" encType="">
+            <form name="login" className="login-form" autoComplete="on" action="/auth" method="post" encType="">
                 <input type="text" className="userID" placeholder="아이디" required></input>
                 <img src={user} className="userInter" alt="userIcon"></img>
                 <p className="after"></p>
@@ -31,7 +47,7 @@ function LoginForm() {
                 <input type="password" className="userPW" placeholder="패스워드" required></input>
                 <img src={password} className="passwordInter" alt="passwordIcon"></img>
                 <p className="after2"></p>
-                <button type="submit" className="submit-button">로그인</button>
+                <button type="submit" className="submit-button" onClick={auth}>로그인</button>
             </form>
 
             <div className="help">
