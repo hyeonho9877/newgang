@@ -1,9 +1,9 @@
 import React from 'react';
-import logo from '../../img/logo.png';
 import './Header.css';
 import Menu from '../Menu/Menu';
 import '../../shared/App.css';
 import user from '../../img/user.png';
+import logo from '../../img/logo-header.png';
 
 function Header({ name }) {
     return (
