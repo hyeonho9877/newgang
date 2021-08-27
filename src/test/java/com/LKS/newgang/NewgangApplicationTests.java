@@ -185,4 +185,18 @@ class NewgangApplicationTests {
         assertThat(result.size()).isEqualTo(0);
     }
 
+    @Test
+    void 캠퍼스정보_TC01(){
+        List<HashMap<String, ArrayList<String>>> campusInfo = searchService.getCampusInfo();
+        for (HashMap<String, ArrayList<String>> target : campusInfo) {
+            for(String key : target.keySet()){
+                System.out.println("current key : "+key);
+                for(String source : target.get(key)){
+                    System.out.print(source);
+                }
+                System.out.println();
+            }
+        }
+    }
+
 }

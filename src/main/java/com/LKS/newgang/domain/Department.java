@@ -13,6 +13,10 @@ import javax.persistence.*;
 public class Department {
 
     @Id
+    @Column(name = "dept_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int no;
+
     @Column(name = "department_name", nullable = false)
     private String departmentName;
 

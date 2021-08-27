@@ -5,13 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
 /**
  * 유저가 로그인을 성공한 후 기능탭 내에서 이루어지는 작업이 아닌 외부에서 이루어지는 작업에 대한 요청에 응답하는 컨트롤러
  */
-@Controller
+@RestController
 public class MainController {
 
     /**

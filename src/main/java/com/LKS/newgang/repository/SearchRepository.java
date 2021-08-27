@@ -15,11 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Optional;
 
-@Repository
-public interface SearchRepository extends JpaRepository<Lecture, String> {
-
 public interface SearchRepository extends JpaRepository<Lecture,Integer> {
-    List<Lecture> findByDepartment(String departmentName);
+
     @Query("select l from Lecture l where l.department.departmentName =: department")
     List<Lecture> findByDepartment(@Param("department") String department);
     /*public List<Lecture> findByDepartment(String department) {

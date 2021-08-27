@@ -5,13 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
 /**
  * 유저의 로그인 요청을 응답하는 컨트롤러
  */
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class LoginController {
 
