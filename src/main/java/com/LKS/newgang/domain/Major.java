@@ -11,7 +11,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Major {
+
     @Id
+    @Column(name = "major_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int no;
+
     @Column(name = "major_name", nullable = false)
     private String majorName;
     @JoinColumn(name="department_name")

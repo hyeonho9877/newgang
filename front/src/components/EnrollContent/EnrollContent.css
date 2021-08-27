@@ -1,0 +1,6 @@
+/* container */
+.enrollContainer{ width: 1500px; margin: 0 auto; padding-top: 64px;
+    font-family: "appleL", serif; line-height: 25px;
+    font-size: 22px;
+}
+.enrollContents{ background-color: #e9e9e9; margin-top: 50px; border-radius: 5px; padding: 40px 50px; height: 600px;}

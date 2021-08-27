@@ -1,6 +1,7 @@
 package com.LKS.newgang.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @Setter
 public class Lecture {
 
@@ -31,4 +33,8 @@ public class Lecture {
     private int curr_grade;
     private int curr_other_grade;
     private int curr_transfer;
+
+    public Lecture(int lectureNo){
+        this.no=lectureNo;
+    }
 }

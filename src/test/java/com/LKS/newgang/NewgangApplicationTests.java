@@ -1,11 +1,13 @@
 package com.LKS.newgang;
 
+import com.LKS.newgang.domain.WishList;
 import com.LKS.newgang.domain.Department;
 import com.LKS.newgang.domain.Lecture;
 import com.LKS.newgang.domain.Major;
 import com.LKS.newgang.repository.SearchRepository;
 import com.LKS.newgang.service.LoginService;
 import com.LKS.newgang.service.SearchService;
+import com.LKS.newgang.service.WishListService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +32,9 @@ class NewgangApplicationTests {
 
     @Autowired
     private SearchService searchService;
+
+    @Autowired
+    private WishListService wishListService;
 
     @Autowired
     private SearchRepository searchRepository;
@@ -126,4 +131,72 @@ class NewgangApplicationTests {
         assertThat(lectureList.equals(searchService.findByDepartment(department.getDepartmentName())));
         assertThat(lectureList.equals(searchService.findByMajor(major.getMajorName())));
     }
+
+    @Test
+    void 소망가방담기(){
+        wishlistApply_TC01();
+        wishlistApply_TC02();
+        wishlistApply_TC03();
+        wishlistApply_TC04();
+    }
+
+    @Test
+    void wishlistApply_TC01(){
+        assertThat(wishListService.apply("201713883","1")).isEqualTo("신청이 완료되었습니다.");
+    }
+
+    @Test
+    void wishlistApply_TC02(){
+        assertThat(wishListService.apply("999999999","1")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 1");
+    }
+
+    @Test
+    void wishlistApply_TC03(){
+        assertThat(wishListService.apply("201713883","4")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 2");
+    }
+
+    @Test
+    void wishlistApply_TC04(){
+        assertThat(wishListService.apply("STRING","1")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 3");
+    }
+
+    @Test
+    void 소망가방조회(){
+        wishlistInquiry_TC01();
+        wishlistInquiry_TC02();
+        wishlistInquiry_TC03();
+    }
+
+    @Test
+    void wishlistInquiry_TC01(){
+        List<WishList> result = wishListService.getList("201713883");
+        assertThat(result.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void wishlistInquiry_TC02(){
+        List<WishList> result = wishListService.getList("999999999");
+        assertThat(result.size()).isEqualTo(0);
+    }
+
+    @Test
+    void wishlistInquiry_TC03(){
+        List<WishList> result = wishListService.getList("STRING");
+        assertThat(result.size()).isEqualTo(0);
+    }
+
+    @Test
+    void 캠퍼스정보_TC01(){
+        List<HashMap<String, ArrayList<String>>> campusInfo = searchService.getCampusInfo();
+        for (HashMap<String, ArrayList<String>> target : campusInfo) {
+            for(String key : target.keySet()){
+                System.out.println("current key : "+key);
+                for(String source : target.get(key)){
+                    System.out.print(source);
+                }
+                System.out.println();
+            }
+        }
+    }
+
 }

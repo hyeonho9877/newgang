@@ -1,11 +1,13 @@
 package com.LKS.newgang.domain;
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Setter
+@NoArgsConstructor
 public class Student {
 
     @Id
@@ -32,6 +34,10 @@ public class Student {
     @JoinColumn(name="major_name")
     @ManyToOne
     private Major major;
+
+    public Student(int stdNo){
+        this.no = stdNo;
+    }
 
     public String getPassword() {
         return password;

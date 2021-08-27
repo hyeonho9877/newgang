@@ -9,6 +9,10 @@ import javax.persistence.*;
 public class Colleague {
 
     @Id
+    @Column(name = "colleague_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int no;
+
     @Column(name = "colleague_name", nullable = false)
     private String colleagueName;
 
