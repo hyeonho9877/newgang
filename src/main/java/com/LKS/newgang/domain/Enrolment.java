@@ -1,11 +1,13 @@
 package com.LKS.newgang.domain;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Setter
+@Getter
 public class Enrolment {
     @Id
     @Column(name = "enr_no")
@@ -29,5 +31,10 @@ public class Enrolment {
 
     public Lecture getLec_no() {
         return lec_no;
+    }
+
+    public Enrolment(Student student, Lecture lecture){
+        this.std_no = student;
+        this.lec_no = lecture;
     }
 }
