@@ -1,0 +1,59 @@
+h1{ font-size: 40px; margin-bottom: 60px; text-align: center;}
+.LoginPage {
+    font-family: "AppleL", serif;}
+
+/* loginForm */
+.login-form { display: grid; gap: 15px;
+    grid-template-areas:
+  "a a b"
+  "c c b";
+    position: relative;
+}
+.userID,.userPW { padding: 4px 0px 0px 50px;}
+.userID{ grid-area: a; width: 250px; font-size: 16px;}
+.userPW{ grid-area: c; font-size: 16px;}
+.submit-button{ padding: 30px 20px; font-size: 25px;
+    color:#fff; border:none; background-color: orange; cursor:pointer; grid-area:b;
+}
+.userInter{ position: absolute; width: 35px; height: 35px; top: 3px; left: 7px; }
+.passwordInter{ position: absolute; width: 30px; height: 30px; top: 60px; left: 10px;}
+.after,.after2{ position: relative ;}
+.after::after,.after2::after{ content:""; position:absolute; border-right: 1px solid #757575; width: 1px; height: 19px;}
+.after::after{top:-98px; left: 45px;}
+.after2::after{top:-43px; left:-274px;}
+input:focus::placeholder{ color:transparent }
+
+/* languageForm */
+.radio-form{ display: flex; justify-content: space-between; width: 220px; margin-bottom: 50px;}
+input[type='radio'],
+input[type='radio']:checked {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    margin-right: 0.1rem;
+    cursor: pointer;
+    margin-right: 10px;
+}
+input[type='radio'] {
+    background-color: #fff;
+    border: none;
+    position: relative;
+}
+input[type='radio']:checked:after{
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #F15922;
+    top:3px;
+    left: 3px;
+    position: absolute;
+}
+input[type='radio']:checked {
+    border: none;
+}
+.help{ }
+.helpIcon { width: 27px; height: 27px; margin-right: 5px;}
+.help a{ display: flex; align-items: center; width: 215px;}
+.help p{ color: #fff;}
