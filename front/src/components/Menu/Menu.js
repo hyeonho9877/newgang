@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './Menu.css'
-import {Link} from 'react-router-dom';
-import {AppBar, Tabs, Tab, styled} from "@material-ui/core";
+import {AppBar, styled, Tab, Tabs} from "@material-ui/core";
 
 function Menu() {
     function handleChange() {

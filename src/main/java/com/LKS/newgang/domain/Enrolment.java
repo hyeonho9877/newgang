@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class Enrolment {
+
     @Id
     @Column(name = "enr_no")
     private int no;

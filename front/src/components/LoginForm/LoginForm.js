@@ -3,8 +3,7 @@ import '../reset.css';
 import user from '../../img/user.png';
 import password from '../../img/password.png';
 import info from '../../img/info.png'
-import { Link } from 'react-router-dom';
-import { React, useState }from 'react';
+import {React} from 'react';
 import axios from "axios";
 
 

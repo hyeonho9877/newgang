@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { Main, Enroll, Notice, Inquire} from '../Pages';
+import {Route, Switch} from 'react-router-dom';
+import {Enroll, Inquire, Main, Notice} from '../Pages';
 
 function App() {
     return(

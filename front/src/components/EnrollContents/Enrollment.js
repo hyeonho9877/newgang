@@ -1,4 +1,4 @@
-import { TableRow,TableCell } from "@material-ui/core";
+import {TableCell, TableRow} from "@material-ui/core";
 
 function Enrollment( { 공학인증, 비고, 과목명, 과목번호, 교시, 담당교수, 이수구분, 정원초과여부, 학년, 학수코드, 학점} ) {
     return(

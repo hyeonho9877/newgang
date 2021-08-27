@@ -1,14 +1,14 @@
 import './InquireContents.css';
 import {
+    Button,
+    InputLabel,
+    MenuItem,
+    Select,
     Table,
     TableBody,
     TableCell,
     TableHead,
-    TableRow,
-    Button,
-    InputLabel,
-    Select,
-    MenuItem
+    TableRow
 } from "@material-ui/core";
 import Enrollment from "../EnrollContents/Enrollment";
 import React from "react";

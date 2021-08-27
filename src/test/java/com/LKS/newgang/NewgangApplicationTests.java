@@ -1,9 +1,9 @@
 package com.LKS.newgang;
 
-import com.LKS.newgang.domain.WishList;
 import com.LKS.newgang.domain.Department;
 import com.LKS.newgang.domain.Lecture;
 import com.LKS.newgang.domain.Major;
+import com.LKS.newgang.domain.WishList;
 import com.LKS.newgang.repository.SearchRepository;
 import com.LKS.newgang.service.LoginService;
 import com.LKS.newgang.service.SearchService;
@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,7 +140,7 @@ class NewgangApplicationTests {
 
     @Test
     void wishlistApply_TC01(){
-        assertThat(wishListService.apply("201713883","1")).isEqualTo("신청이 완료되었습니다.");
+        assertThat(wishListService.apply("201713883","2")).isEqualTo("신청이 완료되었습니다.");
     }
 
     @Test

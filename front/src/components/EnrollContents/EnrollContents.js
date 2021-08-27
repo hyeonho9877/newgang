@@ -1,6 +1,16 @@
 import React from 'react';
 import './EnrollContents.css';
-import {Table, TableBody, TableCell, TableHead, TableRow, InputLabel, Select, MenuItem, Button} from "@material-ui/core";
+import {
+    Button,
+    InputLabel,
+    MenuItem,
+    Select,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow
+} from "@material-ui/core";
 import Enrollment from "./Enrollment";
 
 
