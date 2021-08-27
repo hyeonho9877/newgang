@@ -1,8 +1,11 @@
 package com.LKS.newgang.domain;
 
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Setter
 public class Enrolment {
     @Id
     @Column(name = "enr_no")
