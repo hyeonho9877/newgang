@@ -24,7 +24,7 @@ h1{ font-size: 40px; margin-bottom: 60px; text-align: center;}
 input:focus::placeholder{ color:transparent }
 
 /* languageForm */
-.radio-form{ display: flex; justify-content: space-between; width: 220px; margin-bottom: 50px;}
+.radio-form{ display: flex; justify-content: space-evenly; width: 420px; margin-bottom: 50px;}
 input[type='radio'],
 input[type='radio']:checked {
     appearance: none;
