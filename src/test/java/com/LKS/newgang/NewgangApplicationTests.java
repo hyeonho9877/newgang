@@ -105,23 +105,31 @@ class NewgangApplicationTests {
     }
 
     @Test
-    void 소망가방신청_TC01(){
-        assertThat(wishListService.apply("201713883","1")).isEqualTo(true);
+    void 소망가방담기(){
+        wishlistApply_TC01();
+        wishlistApply_TC02();
+        wishlistApply_TC03();
+        wishlistApply_TC04();
     }
 
     @Test
-    void 소망가방신청_TC02(){
-        assertThat(wishListService.apply("999999999","1")).isEqualTo(false);
+    void wishlistApply_TC01(){
+        assertThat(wishListService.apply("201713883","1")).isEqualTo("신청이 완료되었습니다.");
     }
 
     @Test
-    void 소망가방신청_TC03(){
-        assertThat(wishListService.apply("201713883","4")).isEqualTo(false);
+    void wishlistApply_TC02(){
+        assertThat(wishListService.apply("999999999","1")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 1");
     }
 
     @Test
-    void 소망가방신청_TC04(){
-        assertThat(wishListService.apply("STRING","1")).isEqualTo(false);
+    void wishlistApply_TC03(){
+        assertThat(wishListService.apply("201713883","4")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 2");
+    }
+
+    @Test
+    void wishlistApply_TC04(){
+        assertThat(wishListService.apply("STRING","1")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 3");
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.NoSuchElementException;
 
 /**
  * 소망가방에 대한 유저의 요청을 담당하는 컨트롤러
@@ -19,7 +20,9 @@ public class WishListController {
     private final WishListService wishListService;
 
     @PostMapping("/wishlist")
-    public String wishlistPage(){
+    public String wishlistPage(Model model, HttpSession session){
+        String stdID = String.valueOf(session.getAttribute("stdID"));
+        model.addAttribute("wishlist", wishListService.getList(stdID));
         return "/wishlist/main";
     }
 
@@ -33,9 +36,10 @@ public class WishListController {
     @ResponseBody
     public ResponseEntity<?> apply(@RequestParam(name = "lectureNo") String lectureNo, HttpSession session){
         String stdID = String.valueOf(session.getAttribute("stdID"));
-        if(wishListService.apply(stdID,lectureNo))
-            return ResponseEntity.ok().build();
-        else return ResponseEntity.badRequest().build();
+        String result = wishListService.apply(stdID, lectureNo);
+        if(result.equals("신청이 완료되었습니다."))
+            return ResponseEntity.ok(result);
+        else return ResponseEntity.badRequest().body(result);
     }
 
     @PostMapping("/wishlist/inquiry")
