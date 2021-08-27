@@ -1,0 +1,38 @@
+/* container */
+.Main{ position: fixed; width: 100%; height: 100%;
+    background-size: cover;
+}
+.white-container{ position: fixed; top:0; left: 0; background-color: #ffffff8c; width: 100%; height: 100%; }
+.main-container{ width: 1400px; position: relative; border:1px solid black; margin:0 auto; height: 900px;}
+
+
+/* kyonggiSignatureColor*/
+.kgu-sign1{ background-color: #014DA1}
+.kgu-sign2{ background-color: #F6B566}
+.kgu-sign3{ background-color: #00AC5C}
+.kgu-sign4{ background-color: #F15922}
+
+/* boxs */
+.box1{ position: absolute; left: 0px; width: 250px; height: 100%;
+    /*background-image: url("src/img/login-background.jpg");*/
+}
+.box2{ position: absolute; left: 400px; top:80px; width: 470px; height: 360px; color: #fff;
+    padding: 70px 0px 40px 0px; display: flex; flex-direction: column; justify-content:flex-start; align-items: center;
+    -webkit-box-shadow: -8px 12px 11px -5px rgba(0,0,0,0.47);
+    box-shadow: -8px 12px 11px -5px rgba(0,0,0,0.47);
+}
+.box3{ position: absolute; left: 870px; top:150px; width: 400px; height: 300px;
+    -webkit-box-shadow: 12px 5px 22px 0px rgba(0,0,0,0.33);
+    box-shadow: 12px 5px 22px 0px rgba(0,0,0,0.33);
+}
+.box4{ position: absolute; left: 610px; top:700px; width: 200px; height: 150px;
+    font-size: 11px; color: #fff; padding: 30px; display: flex; flex-direction: column; justify-content: center;
+    -webkit-box-shadow: -12px 12px 25px 0px rgba(0,0,0,0.33);
+    box-shadow: -12px 12px 25px 0px rgba(0,0,0,0.33);
+}
+.box5{ position: absolute; left: 870px; top:510px; width: 270px; height: 270px; }
+
+/* campusInfo */
+.suwon-campus-info{ margin-bottom: 10px; line-height: 15px; }
+.seoul-campus-info{ margin-bottom: 10px; line-height: 15px; }
+.logo{ width: 300px; height: 230px; position: absolute; left: 60px; }

@@ -1,0 +1,9 @@
+/* container */
+.menuContainer{ position: relative; }
+
+.menulist { display: flex; font-family: "appleL"; font-size: 18px; justify-content: space-between; margin-left: 50px;}
+.menulist li { width: 120px; text-align: center;}
+.movingLine { width: 120px; border: 2px solid #000; position:absolute; background-color: #000; top:37px; left:50px; transition: 0.4s;
+    display: none;
+}
+.movingLine.show { display: block;}

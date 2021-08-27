@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'appleL';
+    src: url("../../src/font/AppleSDGothicNeoL00.woff") format('woff');
+}
+@font-face {
+    font-family: 'appleB';
+    src: url("../../src/font/AppleSDGothicNeoB00.woff") format('woff');
+}
+@font-face {
+    font-family: 'appleEB';
+    src: url("../../src/font/AppleSDGothicNeoEB00.woff") format('woff');
+}
+@font-face {
+    font-family: 'appleUL';
+    src: url("../../src/font/AppleSDGothicNeoUL00.woff") format('woff');
+}
+*{
+    font-family: "appleB", serif;
+}
