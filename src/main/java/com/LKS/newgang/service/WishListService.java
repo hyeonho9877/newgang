@@ -29,7 +29,7 @@ public class WishListService {
     /**
      * 사용자가 특정 강의에 대한 소망가방 담기를 희망할 때 실행되는 메소드
      *
-     * @param stdID     현재 로그인하여 작업을 진행하고 있는 학생의 학생번호
+     * @param stdID 현재 로그인하여 작업을 진행하고 있는 학생의 학생번호
      * @param lectureNo 소망가방에 담고자 하는 강의의 강의번호.
      * @return 신청 결과 성공여부에 따른 적절한 안내 메시지
      */

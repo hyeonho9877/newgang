@@ -19,4 +19,8 @@ public class Campus {
     public String getCampusName() {
         return campusName;
     }
+
+    public void setCampusName(String campusName) {
+        this.campusName = campusName;
+    }
 }

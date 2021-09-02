@@ -16,7 +16,6 @@ public class Lecture {
 
     @Id
     @Column(name = "lec_no", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private String lectureName;
     private String classification;

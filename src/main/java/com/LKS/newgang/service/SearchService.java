@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -63,34 +64,25 @@ public class SearchService {
         }
     }
 
-    public List<HashMap<String, ArrayList<String>>> getCampusInfo(){
-        List<Campus> campusList = campusRepository.findAll();
-        List<Colleague> colleagueList = colleagueRepository.findAll();
-        List<Department> departmentList = departmentRepository.findAll();
-        List<Major> majorList = majorRepository.findAll();
+    public List<String> colleagueList(HashMap<String, String> info){
+        Campus campus = campusRepository.findById(info.get("campus")).orElseThrow();
+        List<String> result = colleagueRepository.findByCampus(campus).stream().map(Colleague::getColleagueName).collect(Collectors.toList());
+        return result;
+    }
 
-        HashMap<String, ArrayList<String>> campusMap = new HashMap<>();
-        HashMap<String, ArrayList<String>> colleagueMap = new HashMap<>();
-        HashMap<String, ArrayList<String>> departmentMap = new HashMap<>();
+    public List<String> deptList(HashMap<String, String> info) {
+        Campus campus = new Campus(info.get("campus"));
+        Colleague colleague = colleagueRepository.findByCampusAndColleagueName(campus,info.get("colleague")).orElseThrow();
+        List<String> result = departmentRepository.findByColleague(colleague).stream().map(Department::getDepartmentName).collect(Collectors.toList());
+        return result;
+    }
 
-        for(Campus campus : campusList){
-            campusMap.put(campus.getCampusName(),new ArrayList<>());
-        }
+    public List<String> majorList(HashMap<String, String> info) {
+        Campus campus = new Campus(info.get("campus"));
+        Colleague colleague = colleagueRepository.findByCampusAndColleagueName(campus, info.get("colleague")).orElseThrow();
 
-        for(Colleague colleague : colleagueList){
-            campusMap.get(colleague.getCampus().getCampusName()).add(colleague.getColleagueName());
-            colleagueMap.put(colleague.getColleagueName(),new ArrayList<>());
-        }
-
-        for(Department department : departmentList){
-            colleagueMap.get(department.getColleague().getColleagueName()).add(department.getDepartmentName());
-            departmentMap.put(department.getDepartmentName(), new ArrayList<>());
-        }
-
-        for (Major major : majorList) {
-            departmentMap.get(major.getDepartment().getDepartmentName()).add(major.getMajorName());
-        }
-
-        return List.of(campusMap, colleagueMap, departmentMap);
+        Department department = departmentRepository.findByColleagueAndDepartmentName(colleague, info.get("department")).orElseThrow();
+        List<String> result = majorRepository.findByDepartment(department).stream().map(Major::getMajorName).collect(Collectors.toList());
+        return result;
     }
 }

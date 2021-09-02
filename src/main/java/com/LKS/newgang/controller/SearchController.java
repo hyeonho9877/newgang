@@ -1,14 +1,11 @@
 package com.LKS.newgang.controller;
 
-import com.LKS.newgang.domain.Lecture;
+import com.LKS.newgang.domain.*;
 import com.LKS.newgang.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -54,10 +51,36 @@ public class SearchController {
         return result[0];
     }
 
-    @PostMapping("/search/refinement")
-    public List<HashMap<String, ArrayList<String>>> getCampusInfo(){
-        //캠퍼스 정보 가져오기
-        return searchService.getCampusInfo();
+    @PostMapping("/colleagueList")
+    public ResponseEntity<?> getColleagueList(@RequestBody HashMap<String,String> info){
+        try {
+            return ResponseEntity.ok(searchService.colleagueList(info));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
     }
 
+
+
+    @PostMapping("/majorList")
+    public ResponseEntity<?> getMajorList(@RequestBody HashMap<String,String> info){
+        try {
+            return ResponseEntity.ok(searchService.majorList(info));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+    @PostMapping("/departmentList")
+    public ResponseEntity<?> getDeptList(@RequestBody HashMap<String,String> info) {
+        try {
+            return ResponseEntity.ok(searchService.deptList(info));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

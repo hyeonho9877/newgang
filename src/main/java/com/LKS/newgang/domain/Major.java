@@ -27,6 +27,11 @@ public class Major {
         this.majorName = majorName;
     }
 
+    public Major(String majorName, Department department) {
+        this.majorName=majorName;
+        this.department = department;
+    }
+
     public String getMajorName() {
         return majorName;
     }

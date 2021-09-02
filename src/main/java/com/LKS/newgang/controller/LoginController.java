@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LoginController {
 
     private final LoginService loginService;
@@ -24,11 +24,10 @@ public class LoginController {
      * 웹 브라우저에서 입력받은 아이디와 비밀번호를 바탕으로 유저 인증을 실행하는 메소드
      * @param session 유저와 서버간의 세션
      * @param form 유저가 입력한 아이디와 비밀번호를 담고 있는 객체
-     * @return 로그인에 성공할 시 메인 페이지로 이동, 실패시 새로고침->Model에 로그인에 실패하였음을 알려주는 데이터 전송
+     * @return 로그인에 성공하면 ok, 실패하면 badRequest
      */
     @PostMapping("/auth")
     public ResponseEntity<?> auth(HttpSession session, @RequestBody LoginForm form){
-        System.out.println("hello");
         if(loginService.authStudent(form.getUserID(), form.getPassword())){
             // set max session time to 10 min
             session.setMaxInactiveInterval(600);
@@ -36,8 +35,18 @@ public class LoginController {
             // return page
             return ResponseEntity.ok().build();
         } else{
-            return ResponseEntity.badRequest().body("로그인 실패");
+            return ResponseEntity.badRequest().body("학번 또는 비밀번호가 잘못돼었습니다.");
         }
+    }
 
+    /**
+     * 로그아웃
+     * @param session 유저와 서버간의 세션
+     * @return ok
+     */
+    @PostMapping("/auth/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.ok().build();
     }
 }
