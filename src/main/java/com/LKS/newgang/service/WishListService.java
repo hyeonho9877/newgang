@@ -10,11 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * 소망가방 기능과 관련된 사용자의 요구에 대한 기능적인 작업처리를 담당하는 클래스
@@ -31,7 +29,7 @@ public class WishListService {
     /**
      * 사용자가 특정 강의에 대한 소망가방 담기를 희망할 때 실행되는 메소드
      *
-     * @param stdID     현재 로그인하여 작업을 진행하고 있는 학생의 학생번호
+     * @param stdID 현재 로그인하여 작업을 진행하고 있는 학생의 학생번호
      * @param lectureNo 소망가방에 담고자 하는 강의의 강의번호.
      * @return 신청 결과 성공여부에 따른 적절한 안내 메시지
      */
@@ -48,9 +46,11 @@ public class WishListService {
 
             for (WishList registration : wishlist) {
                 // 기존에 신청한 강의의 강의 시간
-                String alreadyApplied = lectureRepository.findById(registration.getLecNo().getNo()).map(Lecture::getTime).orElseThrow();
+                Lecture target = lectureRepository.findById(registration.getLecNo().getNo()).orElseThrow();
+                if(wantToApply.getLectureName().equals(target.getLectureName()))
+                    return "이미 신청한 강의입니다.";
                 // 신청하려는 강의와 기존에 신청한 강의의 강의 시간을 비교
-                if (wantToApply.getTime().equals(alreadyApplied))
+                if (wantToApply.getTime().equals(target.getTime()))
                     return "기존에 신청한 강의와 강의 시간이 중복됩니다.";
             }
 

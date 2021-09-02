@@ -1,10 +1,7 @@
 package com.LKS.newgang;
 
-import com.LKS.newgang.domain.WishList;
-import com.LKS.newgang.domain.Department;
-import com.LKS.newgang.domain.Lecture;
-import com.LKS.newgang.domain.Major;
-import com.LKS.newgang.repository.SearchRepository;
+import com.LKS.newgang.domain.*;
+import com.LKS.newgang.repository.*;
 import com.LKS.newgang.service.LoginService;
 import com.LKS.newgang.service.SearchService;
 import com.LKS.newgang.service.WishListService;
@@ -13,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +33,19 @@ class NewgangApplicationTests {
 
     @Autowired
     private SearchRepository searchRepository;
+
+    @Autowired
+    private CampusRepository campusRepository;
+
+    @Autowired
+    private ColleagueRepository colleagueRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private MajorRepository majorRepository;
+
     @Test
     void 로그인_TC01() {
         assertThat(loginService.authStudent(201713883, "201713883")).isEqualTo(true);
@@ -142,7 +150,7 @@ class NewgangApplicationTests {
 
     @Test
     void wishlistApply_TC01(){
-        assertThat(wishListService.apply("201713883","1")).isEqualTo("신청이 완료되었습니다.");
+        assertThat(wishListService.apply("201713883","2")).isEqualTo("신청이 완료되었습니다.");
     }
 
     @Test
@@ -185,17 +193,56 @@ class NewgangApplicationTests {
         assertThat(result.size()).isEqualTo(0);
     }
 
-    @Test
-    void 캠퍼스정보_TC01(){
-        List<HashMap<String, ArrayList<String>>> campusInfo = searchService.getCampusInfo();
-        for (HashMap<String, ArrayList<String>> target : campusInfo) {
-            for(String key : target.keySet()){
-                System.out.println("current key : "+key);
-                for(String source : target.get(key)){
-                    System.out.print(source);
+    /*@Test
+    void 교내캠퍼스구분(){
+        HashMap<Campus, HashMap<Colleague, HashMap<Department, ArrayList<Major>>>> campusInfo = searchService.getCampusInfo();
+        for(Campus campus:campusInfo.keySet()){
+            System.out.println("campus : "+campus.getCampusName());
+            for (Colleague colleague : campusInfo.get(campus).keySet()) {
+                System.out.println("colleague : " + colleague.getColleagueName());
+                for (Department department : campusInfo.get(campus).get(colleague).keySet()) {
+                    System.out.println(department.getDepartmentName());
+                    for (Major major : campusInfo.get(campus).get(colleague).get(department)) {
+                        System.out.println("major : "+major.getMajorName());
+                    }
                 }
-                System.out.println();
             }
+        }
+    }*/
+
+    @Test
+    void 캠퍼스구분출력(){
+        campus();
+        colleague();
+        department();
+        major();
+    }
+
+    @Test
+    void campus(){
+        for (Campus campus : campusRepository.findAll()) {
+            System.out.println(campus.getCampusName());
+        }
+    }
+
+    @Test
+    void colleague(){
+        for (Colleague colleague : colleagueRepository.findAll()) {
+            System.out.println(colleague.getColleagueName());
+        }
+    }
+
+    @Test
+    void department(){
+        for (Department department : departmentRepository.findAll()) {
+            System.out.println(department.getDepartmentName());
+        }
+    }
+
+    @Test
+    void major(){
+        for (Major major : majorRepository.findAll()) {
+            System.out.println(major.getMajorName());
         }
     }
 

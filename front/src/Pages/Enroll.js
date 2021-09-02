@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header/Header';
-import EnrollContent from '../components/EnrollContent/EnrollContent';
+import EnrollContent from '../components/EnrollContents/EnrollContents';
 import Footer from '../components/Footer/Footer';
 
 const Enroll = ({ match }) => {

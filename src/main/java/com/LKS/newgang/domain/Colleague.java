@@ -24,6 +24,11 @@ public class Colleague {
         this.colleagueName = colleagueName;
     }
 
+    public Colleague(String colleagueName, Campus campus) {
+        this.colleagueName = colleagueName;
+        this.campus = campus;
+    }
+
     public Campus getCampus() {
         return campus;
     }

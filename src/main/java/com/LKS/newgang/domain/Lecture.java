@@ -3,6 +3,7 @@ package com.LKS.newgang.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 

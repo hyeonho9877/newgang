@@ -28,6 +28,11 @@ public class Department {
         this.departmentName = departmentName;
     }
 
+    public Department(String departmentName, Colleague colleague) {
+        this.departmentName = departmentName;
+        this.colleague = colleague;
+    }
+
     public String getDepartmentName() {
         return departmentName;
     }

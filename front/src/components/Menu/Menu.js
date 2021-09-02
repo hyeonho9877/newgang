@@ -1,33 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Menu.css'
-import { Link } from 'react-router-dom';
+import {AppBar, styled, Tab, Tabs} from "@material-ui/core";
 
 function Menu() {
-    let [ state, setState ] = useState(0);
-
-    function toggle(){
-        setState( state => false);
+    function handleChange() {
+        console.log("toggle");
     }
-    return(
+    const StyleAppBar = styled(AppBar) `
+        && {
+          background-color: #ffffff;
+          color:#ffffff;
+          font-size: 20px;
+        }
+    `
+
+    return (
         <div className="menuContainer">
-            <span className="movingLine"></span>
-            <ul className="menulist" onMouseOver={toggle}>
-                <li>
-                    <Link to="#">
-                        공지사항
-                    </Link>
-                </li>
-                <li>
-                    <Link to="#">
-                        조회
-                    </Link>
-                </li>
-                <li>
-                    <Link to="#">
-                        수강신청
-                    </Link>
-                </li>
-            </ul>
+            <AppBar position="static">
+                <Tabs onChange={handleChange} aria-label="Main Tabs">
+                    <Tab label="공지사항"/>
+                    <Tab label="조회"/>
+                    <Tab label="수강신청"/>
+                </Tabs>
+            </AppBar>
         </div>
     )
 }
