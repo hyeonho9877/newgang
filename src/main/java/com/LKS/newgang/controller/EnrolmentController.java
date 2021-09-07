@@ -24,7 +24,7 @@ public class EnrolmentController {
     }
 
     /**
-     * 소망가방 담기 신청
+     * 수강신청 담기 신청
      * @param lectureNo 신청하려는 강의의 강의번호
      * @param session 유저와 서버간의 세션
      * @return 성공적으로 신청이 완료되면 ResponseEntity.ok(), 실패 시에는 badRequest 리턴

@@ -27,11 +27,11 @@ public class SearchService {
     private final DepartmentRepository departmentRepository;
     private final MajorRepository majorRepository;
 
-    public List<Lecture> findByDepartment(String department) {
+    public List<Lecture> findByDepartment(Department department) {
         return searchRepository.findByDepartment(department);
     }
 
-    public List<Lecture> findByMajor(String major) {
+    public List<Lecture> findByMajor(Major major) {
         return searchRepository.findByMajor(major);
     }
 
