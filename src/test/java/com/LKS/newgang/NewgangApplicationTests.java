@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +50,9 @@ class NewgangApplicationTests {
 
     @Autowired
     private EnrolmentRepository enrolmentRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
     @Test
     void 로그인_TC01() {
         assertThat(loginService.authStudent(201713883, "201713883")).isEqualTo(true);
@@ -197,9 +199,12 @@ class NewgangApplicationTests {
     }
     @Test
     void 소망가방자동수강신청() {
-        wishListService.apply("201713883","2");
-        enrolmentService.applyAuto("201713883");
-        assertThat(wishListService.getList("201713883").size()).isEqualTo(enrolmentService.getList("201713883"));
+        try {
+            enrolmentService.applyAuto(201713883);
+            assertThat(wishListService.getList("201713883").size()).isEqualTo(enrolmentService.getList("201713883").size());
+        } catch (Exception e) {
+            fail("failed");
+        }
     }
     @Test
     void enrolmentListInquiry_TC01(){

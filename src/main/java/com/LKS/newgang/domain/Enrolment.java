@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 @Setter
@@ -13,6 +12,7 @@ public class Enrolment {
 
     @Id
     @Column(name = "enr_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
 
     @JoinColumn(name = "std_no")
@@ -21,7 +21,7 @@ public class Enrolment {
 
     @JoinColumn(name = "lec_no")
     @ManyToOne
-    private Lecture lec_no;
+    private Lecture lecNo;
 
     public Enrolment() {
 
@@ -35,12 +35,12 @@ public class Enrolment {
         return stdNo;
     }
 
-    public Lecture getLec_no() {
-        return lec_no;
+    public Lecture getLecNo() {
+        return lecNo;
     }
 
     public Enrolment(Student student, Lecture lecture){
         this.stdNo = student;
-        this.lec_no = lecture;
+        this.lecNo = lecture;
     }
 }

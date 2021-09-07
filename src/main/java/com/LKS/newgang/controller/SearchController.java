@@ -1,6 +1,8 @@
 package com.LKS.newgang.controller;
 
-import com.LKS.newgang.domain.*;
+import com.LKS.newgang.domain.Department;
+import com.LKS.newgang.domain.Lecture;
+import com.LKS.newgang.domain.Major;
 import com.LKS.newgang.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;

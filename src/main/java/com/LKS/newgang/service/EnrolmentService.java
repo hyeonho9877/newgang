@@ -1,6 +1,9 @@
 package com.LKS.newgang.service;
 
-import com.LKS.newgang.domain.*;
+import com.LKS.newgang.domain.Enrolment;
+import com.LKS.newgang.domain.Lecture;
+import com.LKS.newgang.domain.Student;
+import com.LKS.newgang.domain.WishList;
 import com.LKS.newgang.repository.EnrolmentRepository;
 import com.LKS.newgang.repository.LectureRepository;
 import com.LKS.newgang.repository.StudentRepository;
@@ -10,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -23,6 +25,7 @@ public class EnrolmentService {
     private final LectureRepository lectureRepository;
     private final StudentRepository studentRepository;
     private final WishListRepository wishListRepository;
+
     /**
      * 사용자가 특정 강의에 대한 소망가방 담기를 희망할 때 실행되는 메소드
      *
@@ -43,8 +46,8 @@ public class EnrolmentService {
 
             for (Enrolment registration : enrolmentList) {
                 // 기존에 신청한 강의의 강의 시간
-                Lecture target = lectureRepository.findById(registration.getLec_no().getNo()).orElseThrow();
-                if(wantToApply.getLectureName().equals(target.getLectureName()))
+                Lecture target = lectureRepository.findById(registration.getLecNo().getNo()).orElseThrow();
+                if (wantToApply.getLectureName().equals(target.getLectureName()))
                     return "이미 신청한 강의입니다.";
                 // 신청하려는 강의와 기존에 신청한 강의의 강의 시간을 비교
                 if (wantToApply.getTime().equals(target.getTime()))
@@ -63,41 +66,41 @@ public class EnrolmentService {
             return "시스템 에러가 발생하였습니다. 에러 코드 : " + currentStatus;
         }
     }
-    public void applyAuto(String stdID) {
-        List<WishList> wishList = wishListRepository.findAll();
 
-
+    public void applyAuto(int stdID) {
         try {
-           Student student = studentRepository.findById(Integer.parseInt(stdID)).orElseThrow(NoSuchStudentException::new);
+            Student student = studentRepository.findById(stdID).orElseThrow(NoSuchStudentException::new);
+            List<WishList> wishList = wishListRepository.findByStdNoEquals(student);
 
+            for (WishList ws : wishList) {//소망가방 자동추가
+                Lecture lecture = ws.getLecNo();
+                int curr_transfer = lecture.getCurr_transfer();
+                int max_transfer = lecture.getMax_transfer();
 
-        for (WishList ws : wishList) {//소망가방 자동추가
-            int curr_transfer = ws.getLecNo().getCurr_transfer();
-            int max_transfer = ws.getLecNo().getMax_transfer();
-            int lec_grade = ws.getLecNo().getGrade();
-            int lec_id = lectureRepository.findById(ws.getLecNo().getNo()).map(Lecture::getNo).orElseThrow();
-            if (student.isTransfer()) { // 편입생일 경우
-                if (ws.getLecNo().getMax_transfer() > ws.getLecNo().getCurr_transfer()) {
-                    ws.getLecNo().setCurr_transfer(ws.getLecNo().getCurr_transfer() + 1);
-                    enrolmentRepository.save(new Enrolment(student, lectureRepository.findById(lec_id).orElseThrow()));
-                }
-            } else if (student.getGrade() == ws.getLecNo().getGrade()) {// 현재 학년이랑 과목 학년이랑 같은 경우
-                if (ws.getLecNo().getCurr_grade() < ws.getLecNo().getMax_grade()) {
-                    ws.getLecNo().setCurr_grade(ws.getLecNo().getCurr_grade() + 1);
-                    enrolmentRepository.save(new Enrolment(student, lectureRepository.findById(lec_id).orElseThrow()));
-                }
-            } else if (student.getGrade() != ws.getLecNo().getGrade()) {// 현재 학년이랑 과목 학년이랑 다른 경우
-                if (ws.getLecNo().getCurr_other_grade() < ws.getLecNo().getMax_other_grade()) {
-                    ws.getLecNo().setCurr_other_grade(ws.getLecNo().getCurr_other_grade() + 1);
-                    enrolmentRepository.save(new Enrolment(student, lectureRepository.findById(lec_id).orElseThrow()));
+                if (student.isTransfer()) { // 편입생일 경우
+                    if (max_transfer > curr_transfer) {
+                        lecture.setCurr_transfer(lecture.getCurr_transfer() + 1);
+                        enrolmentRepository.save(new Enrolment(student, lecture));
+                    }
+                } else if (student.getGrade() == lecture.getGrade()) {// 현재 학년이랑 과목 학년이랑 같은 경우
+                    if (lecture.getCurr_grade() < lecture.getMax_grade()) {
+                        lecture.setCurr_grade(lecture.getCurr_grade() + 1);
+                        enrolmentRepository.save(new Enrolment(student, lecture));
+                    }
+                } else if (student.getGrade() != lecture.getGrade()) {// 현재 학년이랑 과목 학년이랑 다른 경우
+                    if (lecture.getCurr_other_grade() < lecture.getMax_other_grade()) {
+                        lecture.setCurr_other_grade(lecture.getCurr_other_grade() + 1);
+                        enrolmentRepository.save(new Enrolment(student, lecture));
+                    }
                 }
             }
+        } catch (NoSuchStudentException e) {
+            // Proper exception handling
         }
 
-            } catch (NoSuchStudentException e) {
-                e.printStackTrace();
-            }
+
     }
+
     /**
      * 특정 학생의 수강신청 리스트 조회 메소드
      *
