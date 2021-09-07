@@ -20,14 +20,14 @@ public class SearchController {
     SearchService searchService;
 
     @GetMapping("/search.dept")
-    public String lectureListbyDept(@RequestParam String department_name, Model model) {
+    public String lectureListbyDept(@RequestParam Department department_name, Model model) {
         List<Lecture> lectureList = searchService.findByDepartment(department_name);
         model.addAttribute("lectureList", lectureList);
         return null;
     }
 
     @GetMapping("/search.major")
-    public String lectureListbyMajor(@RequestParam String major_name, Model model) {
+    public String lectureListbyMajor(@RequestParam Major major_name, Model model) {
         List<Lecture> lectureList = searchService.findByMajor(major_name);
         model.addAttribute("lectureList", lectureList);
         return null;

@@ -1,5 +1,6 @@
 package com.LKS.newgang.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Setter
+@Getter
 @NoArgsConstructor
 public class Student {
 
@@ -17,6 +19,7 @@ public class Student {
     private String greatStudent;
     private int grade;
     private int semester;
+    private boolean transfer;
 
     @JoinColumn(name = "campus_name")
     @ManyToOne

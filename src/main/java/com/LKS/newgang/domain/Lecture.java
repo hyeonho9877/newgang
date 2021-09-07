@@ -27,11 +27,11 @@ public class Lecture {
     @JoinColumn(name = "major_name")
     @ManyToOne
     private Major major;
-    private int grade;
-    private int max_grade;
-    private int max_other_grade;
+    private int grade; //학년
+    private int max_grade; // 현재학년중 최대 인원
+    private int max_other_grade; //현재 학년이 아닌 학년중 최대 인원
     private int max_transfer;
-    private int curr_grade;
+    private int curr_grade; // 현재 학년중 신청한 인원
     private int curr_other_grade;
     private int curr_transfer;
 

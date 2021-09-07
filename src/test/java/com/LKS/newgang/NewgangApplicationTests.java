@@ -2,6 +2,7 @@ package com.LKS.newgang;
 
 import com.LKS.newgang.domain.*;
 import com.LKS.newgang.repository.*;
+import com.LKS.newgang.service.EnrolmentService;
 import com.LKS.newgang.service.LoginService;
 import com.LKS.newgang.service.SearchService;
 import com.LKS.newgang.service.WishListService;
@@ -32,6 +33,8 @@ class NewgangApplicationTests {
     private WishListService wishListService;
 
     @Autowired
+    private EnrolmentService enrolmentService;
+    @Autowired
     private SearchRepository searchRepository;
 
     @Autowired
@@ -46,6 +49,8 @@ class NewgangApplicationTests {
     @Autowired
     private MajorRepository majorRepository;
 
+    @Autowired
+    private EnrolmentRepository enrolmentRepository;
     @Test
     void 로그인_TC01() {
         assertThat(loginService.authStudent(201713883, "201713883")).isEqualTo(true);
@@ -123,21 +128,8 @@ class NewgangApplicationTests {
 
     @Test
     void 과목검색테스트() {
-        Lecture lecture = new Lecture();
-        Department department = new Department();
-        Major major = new Major();
-
-        department.setDepartmentName("컴퓨터공학부");
-        major.setMajorName("컴퓨터공학");
-        lecture.setLectureName("컴퓨터과학개론");
-
-        lecture.setDepartment(department);
-        lecture.setMajor(major);
-        searchRepository.save(lecture);
-        List<Lecture> lectureList = new ArrayList<>();
-        lectureList.add(lecture);
-        assertThat(lectureList.equals(searchService.findByDepartment(department.getDepartmentName())));
-        assertThat(lectureList.equals(searchService.findByMajor(major.getMajorName())));
+        assertThat(searchService.findByMajor(majorRepository.findById(24).orElseThrow()).size()).isEqualTo(1);
+        assertThat(searchService.findByDepartment(departmentRepository.findById(1).orElseThrow()).size()).isEqualTo(3);
     }
 
     @Test
@@ -193,6 +185,58 @@ class NewgangApplicationTests {
         assertThat(result.size()).isEqualTo(0);
     }
 
+    @Test
+    void 수강신청() {
+        enrolmentListApply_TC01();
+        enrolmentListApply_TC02();
+        enrolmentListApply_TC03();
+        enrolmentListApply_TC04();
+    }
+    void 수강신청조회() {
+
+    }
+    @Test
+    void 소망가방자동수강신청() {
+        wishListService.apply("201713883","2");
+        enrolmentService.applyAuto("201713883");
+        assertThat(wishListService.getList("201713883").size()).isEqualTo(enrolmentService.getList("201713883"));
+    }
+    @Test
+    void enrolmentListInquiry_TC01(){
+        List<Enrolment> result = enrolmentService.getList("201713739");
+        assertThat(result.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void enrolmentListInquiry_TC02(){
+        List<Enrolment> result = enrolmentService.getList("999999999");
+        assertThat(result.size()).isEqualTo(0);
+    }
+
+    @Test
+    void enrolmentListInquiry_TC03(){
+        List<Enrolment> result = enrolmentService.getList("STRING");
+        assertThat(result.size()).isEqualTo(0);
+    }
+    @Test
+    void enrolmentListApply_TC01(){
+        assertThat(enrolmentService.apply("201713123","2")).isEqualTo("신청이 완료되었습니다.");
+    }
+
+    @Test
+    void enrolmentListApply_TC02(){
+        assertThat(enrolmentService.apply("999999999","1")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 1");
+    }
+
+    @Test
+    void enrolmentListApply_TC03(){
+        assertThat(enrolmentService.apply("201713123","4")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 2");
+    }
+
+    @Test
+    void enrolmentListApply_TC04(){
+        assertThat(enrolmentService.apply("STRING","1")).isEqualTo("시스템 에러가 발생하였습니다. 에러 코드 : 3");
+    }
     /*@Test
     void 교내캠퍼스구분(){
         HashMap<Campus, HashMap<Colleague, HashMap<Department, ArrayList<Major>>>> campusInfo = searchService.getCampusInfo();
