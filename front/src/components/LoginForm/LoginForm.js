@@ -15,7 +15,7 @@ function LoginForm() {
         const id = document.querySelector(".userID").value;
         const pw = document.querySelector(".userPW").value;
 
-        const data = {"userID": id, "password": pw};
+        const data = {"username": id, "password": pw};
         axios.post("http://localhost:8120/auth",data).then((Response)=>{
             console.log(Response.data);
         }).catch((Error)=>{

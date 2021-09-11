@@ -28,14 +28,14 @@ public class LoginController {
      */
     @PostMapping("/auth")
     public ResponseEntity<?> auth(HttpSession session, @RequestBody LoginForm form){
-        if(loginService.authStudent(form.getUserID(), form.getPassword())){
+        if(loginService.authStudent(form.getUsername(), form.getPassword())){
             // set max session time to 10 min
             session.setMaxInactiveInterval(600);
-            session.setAttribute("stdID", form.getUserID());
+            session.setAttribute("stdID", form.getUsername());
             // return page
             return ResponseEntity.ok().build();
         } else{
-            return ResponseEntity.badRequest().body("학번 또는 비밀번호가 잘못돼었습니다.");
+            return ResponseEntity.badRequest().body("학번 또는 비밀번호가 잘못되었습니다.");
         }
     }
 

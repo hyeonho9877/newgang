@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginForm {
-    private int userID;
+    private int username;
     private String password;
 }
