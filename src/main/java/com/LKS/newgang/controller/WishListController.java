@@ -1,15 +1,16 @@
 package com.LKS.newgang.controller;
 
-import com.LKS.newgang.domain.WishList;
+import com.LKS.newgang.domain.Lecture;
 import com.LKS.newgang.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -22,20 +23,17 @@ public class WishListController {
     private final WishListService wishListService;
 
     @PostMapping("/wishlist")
-    public List<WishList> wishlistPage(HttpSession session){
-        String stdID = String.valueOf(session.getAttribute("stdID"));
-        return wishListService.getList(stdID);
+    @PreAuthorize(value = "hasAuthority('student:read')")
+    public List<Lecture> wishlistPage(Authentication authentication){
+        String name = authentication.getName();
+        return wishListService.getList(name);
     }
 
-    /**
-     * 소망가방 담기 신청
-     * @param lectureNo 신청하려는 강의의 강의번호
-     * @param session 유저와 서버간의 세션
-     * @return 성공적으로 신청이 완료되면 ResponseEntity.ok(), 실패 시에는 badRequest 리턴
-     */
+
     @GetMapping("/wishlist/apply")
-    public ResponseEntity<?> apply(@RequestParam(name = "lectureNo") String lectureNo, HttpSession session){
-        String stdID = String.valueOf(session.getAttribute("stdID"));
+    @PreAuthorize(value = "hasAuthority('student:read')")
+    public ResponseEntity<?> apply(@RequestParam(name = "lectureNo") String lectureNo, Authentication authentication){
+        String stdID = authentication.getName();
         String result = wishListService.apply(stdID, lectureNo);
         if(result.equals("신청이 완료되었습니다."))
             return ResponseEntity.ok(result);

@@ -3,6 +3,8 @@ package com.LKS.newgang.service;
 import com.LKS.newgang.domain.Lecture;
 import com.LKS.newgang.domain.Student;
 import com.LKS.newgang.domain.WishList;
+import com.LKS.newgang.exceptions.NoSuchLectureException;
+import com.LKS.newgang.exceptions.NoSuchStudentException;
 import com.LKS.newgang.repository.LectureRepository;
 import com.LKS.newgang.repository.StudentRepository;
 import com.LKS.newgang.repository.WishListRepository;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 /**
  * 소망가방 기능과 관련된 사용자의 요구에 대한 기능적인 작업처리를 담당하는 클래스
@@ -35,7 +38,7 @@ public class WishListService {
      */
     public String apply(String stdID, String lectureNo) {
 
-        List<WishList> wishlist = this.getList(stdID);
+        List<Lecture> wishlist = this.getList(stdID);
 
         if(currentStatus != statusOK)
             return "시스템 에러가 발생하였습니다. 에러 코드 : "+currentStatus;
@@ -44,13 +47,12 @@ public class WishListService {
             Lecture wantToApply = lectureRepository.findById(Integer.parseInt(lectureNo)).orElseThrow(NoSuchLectureException::new);// 현재 신청하기를 원하는 강의의 강의 시간
             Student student = studentRepository.findById(Integer.parseInt(stdID)).orElseThrow(NoSuchStudentException::new); // 현재 신청을 원하는 학생
 
-            for (WishList registration : wishlist) {
+            for (Lecture registration : wishlist) {
                 // 기존에 신청한 강의의 강의 시간
-                Lecture target = lectureRepository.findById(registration.getLecNo().getNo()).orElseThrow();
-                if(wantToApply.getLectureName().equals(target.getLectureName()))
+                if(wantToApply.getLectureName().equals(registration.getLectureName()))
                     return "이미 신청한 강의입니다.";
                 // 신청하려는 강의와 기존에 신청한 강의의 강의 시간을 비교
-                if (wantToApply.getTime().equals(target.getTime()))
+                if (wantToApply.getTime().equals(registration.getTime()))
                     return "기존에 신청한 강의와 강의 시간이 중복됩니다.";
             }
 
@@ -71,16 +73,22 @@ public class WishListService {
      * @param stdID 조회할 학생의 학생번호
      * @return 조회 결과에 따른 현재 상태 변화와 학생의 소망가방 내역이 담긴 새로운 List 객체
      */
-    public List<WishList> getList(String stdID) {
+    public List<Lecture> getList(String stdID) {
         try {
             // 학생 번호로 소망가방 내역 조회
-            List<WishList> result = wishListRepository.findByStdNoEquals(new Student(Integer.parseInt(stdID)));
+            List<Lecture> result = wishListRepository.findByStdNoEquals(new Student(Integer.parseInt(stdID)))
+                    .stream()
+                    .map(WishList::getLecNo)
+                    .collect(Collectors.toList());
+
             currentStatus = statusOK;
             return result;
         } catch (NoSuchElementException e) { // 학생번호로 소망가방 내역 조회 실패
+            e.printStackTrace();
             currentStatus = noSuchStudent;
             return new ArrayList<>();
         } catch (NumberFormatException e){ // stdID 변수의 Integer 형 변환 실패
+            e.printStackTrace();
             currentStatus = integerParsing;
             return new ArrayList<>();
         }
@@ -92,12 +100,4 @@ public class WishListService {
     private final int noSuchStudent = 1;
     private final int noSuchLecture = 2;
     private final int integerParsing = 3;
-
-    private class NoSuchLectureException extends Throwable{
-
-    }
-
-    private class NoSuchStudentException extends Throwable{
-
-    }
 }

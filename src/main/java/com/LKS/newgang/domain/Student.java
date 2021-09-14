@@ -20,6 +20,16 @@ public class Student {
     private int grade;
     private int semester;
     private boolean transfer;
+    @Column(columnDefinition = "tinytext default 'N'")
+    private String isAdmin;
+
+    public boolean isTransfer() {
+        return transfer;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
 
     @JoinColumn(name = "campus_name")
     @ManyToOne

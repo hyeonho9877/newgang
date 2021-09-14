@@ -6,6 +6,7 @@ import com.LKS.newgang.domain.Major;
 import com.LKS.newgang.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class SearchController {
     SearchService searchService;
 
     @GetMapping("/search.dept")
+    @PreAuthorize(value = "hasAuthority('course:read')")
     public String lectureListbyDept(@RequestParam Department department_name, Model model) {
         List<Lecture> lectureList = searchService.findByDepartment(department_name);
         model.addAttribute("lectureList", lectureList);
@@ -28,6 +30,7 @@ public class SearchController {
     }
 
     @GetMapping("/search.major")
+    @PreAuthorize(value = "hasAuthority('course:read')")
     public String lectureListbyMajor(@RequestParam Major major_name, Model model) {
         List<Lecture> lectureList = searchService.findByMajor(major_name);
         model.addAttribute("lectureList", lectureList);
@@ -40,6 +43,7 @@ public class SearchController {
      * @return 학생의 소속 정보
      */
     @PostMapping("/search/getStudentBelonging")
+    @PreAuthorize(value = "hasAuthority('student:read')")
     public ResponseEntity<?> getStdBelong(HttpSession session) {
         Optional<HashMap<String, String>> stdInfo = searchService.stdBelonging(String.valueOf(session.getAttribute("stdID")));
 
@@ -53,6 +57,7 @@ public class SearchController {
     }
 
     @PostMapping("/colleagueList")
+    @PreAuthorize(value = "hasAuthority('course:read')")
     public ResponseEntity<?> getColleagueList(@RequestBody HashMap<String,String> info){
         try {
             return ResponseEntity.ok(searchService.colleagueList(info));
@@ -65,6 +70,7 @@ public class SearchController {
 
 
     @PostMapping("/majorList")
+    @PreAuthorize(value = "hasAuthority('course:read')")
     public ResponseEntity<?> getMajorList(@RequestBody HashMap<String,String> info){
         try {
             return ResponseEntity.ok(searchService.majorList(info));
@@ -76,6 +82,7 @@ public class SearchController {
 
 
     @PostMapping("/departmentList")
+    @PreAuthorize(value = "hasAuthority('course:read')")
     public ResponseEntity<?> getDeptList(@RequestBody HashMap<String,String> info) {
         try {
             return ResponseEntity.ok(searchService.deptList(info));

@@ -3,7 +3,6 @@ package com.LKS.newgang;
 import com.LKS.newgang.domain.*;
 import com.LKS.newgang.repository.*;
 import com.LKS.newgang.service.EnrolmentService;
-import com.LKS.newgang.service.LoginService;
 import com.LKS.newgang.service.SearchService;
 import com.LKS.newgang.service.WishListService;
 import org.junit.jupiter.api.Test;
@@ -21,9 +20,6 @@ import static org.assertj.core.api.Assertions.fail;
 @SpringBootTest
 @Transactional
 class NewgangApplicationTests {
-
-    @Autowired
-    private LoginService loginService;
 
     @Autowired
     private SearchService searchService;
@@ -53,7 +49,8 @@ class NewgangApplicationTests {
 
     @Autowired
     private StudentRepository studentRepository;
-    @Test
+
+    /*@Test
     void 로그인_TC01() {
         assertThat(loginService.authStudent(201713883, "201713883")).isEqualTo(true);
     }
@@ -66,7 +63,7 @@ class NewgangApplicationTests {
     @Test
     void 로그인_TC03() {
         assertThat(loginService.authStudent(201813883, "201713883")).isEqualTo(false);
-    }
+    }*/
 
     @Test
     void 학생정보채움_TC01() {
@@ -171,19 +168,19 @@ class NewgangApplicationTests {
 
     @Test
     void wishlistInquiry_TC01(){
-        List<WishList> result = wishListService.getList("201713883");
+        List<Lecture> result = wishListService.getList("201713883");
         assertThat(result.size()).isGreaterThan(0);
     }
 
     @Test
     void wishlistInquiry_TC02(){
-        List<WishList> result = wishListService.getList("999999999");
+        List<Lecture> result = wishListService.getList("999999999");
         assertThat(result.size()).isEqualTo(0);
     }
 
     @Test
     void wishlistInquiry_TC03(){
-        List<WishList> result = wishListService.getList("STRING");
+        List<Lecture> result = wishListService.getList("STRING");
         assertThat(result.size()).isEqualTo(0);
     }
 
