@@ -32,7 +32,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
 	testImplementation 'org.springframework.security:spring-security-test:5.5.1'
 }
-
+/*
 def webappDir = "$projectDir/front"
 
 sourceSets{
@@ -70,7 +70,7 @@ task installReact(type:Exec) {
 		commandLine "npm", "audit", "fix"
 		commandLine "npm", "install"
 	}
-}
+}*/
 
 test {
 	useJUnitPlatform()
