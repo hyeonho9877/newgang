@@ -21,15 +21,13 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     private final AuthenticationManager authenticationManager;
     private final JwtConfig jwtConfig;
-    private final SecretKey secretKey;
     private final JwtTokenGenerator tokenGenerator;
 
     public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager,
                                                       JwtConfig jwtConfig,
-                                                      SecretKey secretKey, JwtTokenGenerator tokenGenerator) {
+                                                      JwtTokenGenerator tokenGenerator) {
         this.authenticationManager = authenticationManager;
         this.jwtConfig = jwtConfig;
-        this.secretKey = secretKey;
         this.tokenGenerator = tokenGenerator;
     }
 
