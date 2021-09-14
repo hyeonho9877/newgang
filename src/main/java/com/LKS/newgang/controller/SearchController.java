@@ -7,6 +7,7 @@ import com.LKS.newgang.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,15 +38,10 @@ public class SearchController {
         return null;
     }
 
-    /**
-     * 현재 로그인한 학생의 소속 정보를 반환하는 메소드
-     * @param session 유저와 서버간의 세션
-     * @return 학생의 소속 정보
-     */
     @PostMapping("/search/getStudentBelonging")
     @PreAuthorize(value = "hasAuthority('student:read')")
-    public ResponseEntity<?> getStdBelong(HttpSession session) {
-        Optional<HashMap<String, String>> stdInfo = searchService.stdBelonging(String.valueOf(session.getAttribute("stdID")));
+    public ResponseEntity<?> getStdBelong(Authentication authentication) {
+        Optional<HashMap<String, String>> stdInfo = searchService.stdBelonging(authentication.getName());
 
         final ResponseEntity<?>[] result = new ResponseEntity<?>[1];
 
