@@ -22,10 +22,14 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 public class MainController {
 
-
     private final JwtConfig jwtConfig;
     private final MainService mainService;
 
+    /**
+     * 유저의 JWT 토큰 exp 초기화
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     */
     @ResponseBody
     @GetMapping("/refreshToken")
     public void resetLoginSession(HttpServletRequest request, HttpServletResponse response) {

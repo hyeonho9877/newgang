@@ -38,6 +38,11 @@ public class SearchController {
         return null;
     }
 
+    /**
+     * 로그인한 학생의 소속 정보 전송
+     * @param authentication 로그인한 학생의 정보
+     * @return 학생의 소속 정보
+     */
     @PostMapping("/search/getStudentBelonging")
     @PreAuthorize(value = "hasAuthority('student:read')")
     public ResponseEntity<?> getStdBelong(Authentication authentication) {
@@ -52,6 +57,11 @@ public class SearchController {
         return result[0];
     }
 
+    /**
+     * 선택된 캠퍼스를 기반으로 소속된 대학 정보 전송
+     * @param info DB 검색에 필요한 정보
+     * @return 대학 정보
+     */
     @PostMapping("/colleagueList")
     @PreAuthorize(value = "hasAuthority('course:read')")
     public ResponseEntity<?> getColleagueList(@RequestBody HashMap<String,String> info){
@@ -64,7 +74,11 @@ public class SearchController {
     }
 
 
-
+    /**
+     * 선택된 캠퍼스, 대학, 학과를 기반으로 해당되는 전공 정보 전송
+     * @param info DB 검색에 필요한 정보
+     * @return 전공 정보
+     */
     @PostMapping("/majorList")
     @PreAuthorize(value = "hasAuthority('course:read')")
     public ResponseEntity<?> getMajorList(@RequestBody HashMap<String,String> info){
@@ -76,7 +90,11 @@ public class SearchController {
         }
     }
 
-
+    /**
+     * 선택된 캠퍼스, 대학을 기반으로 해당되는 학과 정보를 전송
+     * @param info DB 검색에 필요한 정보
+     * @return 학과 정보
+     */
     @PostMapping("/departmentList")
     @PreAuthorize(value = "hasAuthority('course:read')")
     public ResponseEntity<?> getDeptList(@RequestBody HashMap<String,String> info) {

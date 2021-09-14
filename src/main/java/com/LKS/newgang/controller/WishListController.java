@@ -22,6 +22,11 @@ public class WishListController {
 
     private final WishListService wishListService;
 
+    /**
+     * 로그인한 학생의 소망가방 리스트 전송
+     * @param authentication 로그인한 학생의 정보
+     * @return 소망가방 리스트
+     */
     @PostMapping("/wishlist")
     @PreAuthorize(value = "hasAuthority('student:read')")
     public List<Lecture> wishlistPage(Authentication authentication){
@@ -29,7 +34,12 @@ public class WishListController {
         return wishListService.getList(name);
     }
 
-
+    /**
+     * 로그인한 학생이 신청한 과목을 소망가방 리스트에 추가
+     * @param lectureNo 신청하려는 강의 번호
+     * @param authentication 로그인한 학생의 정보
+     * @return 처리 결과에 따른 HttpResponse
+     */
     @GetMapping("/wishlist/apply")
     @PreAuthorize(value = "hasAuthority('student:read')")
     public ResponseEntity<?> apply(@RequestParam(name = "lectureNo") String lectureNo, Authentication authentication){
