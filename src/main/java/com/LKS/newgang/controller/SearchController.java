@@ -51,7 +51,7 @@ public class SearchController {
      * @param authentication 로그인한 학생의 정보
      * @return 학생의 소속 정보
      */
-    @PostMapping("/search/getStudentBelonging")
+    @PostMapping("/search/stdBelong")
     @PreAuthorize(value = "hasAuthority('student:read')")
     public ResponseEntity<?> getStdBelong(Authentication authentication) {
         Optional<HashMap<String, String>> stdInfo = searchService.stdBelonging(authentication.getName());
