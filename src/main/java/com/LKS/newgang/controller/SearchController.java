@@ -1,41 +1,49 @@
 package com.LKS.newgang.controller;
 
-import com.LKS.newgang.domain.Department;
-import com.LKS.newgang.domain.Lecture;
-import com.LKS.newgang.domain.Major;
 import com.LKS.newgang.service.SearchService;
+import com.google.common.base.Strings;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 public class SearchController {
 
-    @Autowired
-    SearchService searchService;
+    private final SearchService searchService;
 
-    @GetMapping("/search.dept")
+    /**
+     * 전공이나 학과에 따라서 강의 들을 전송
+     * @param info campus, colleague, department, major 정보가 들어있음
+     * @return 강의 정보들
+     */
+    @GetMapping("/search/lectures")
     @PreAuthorize(value = "hasAuthority('course:read')")
-    public String lectureListbyDept(@RequestParam Department department_name, Model model) {
-        List<Lecture> lectureList = searchService.findByDepartment(department_name);
-        model.addAttribute("lectureList", lectureList);
-        return null;
-    }
+    public ResponseEntity<?> getLectureList(@RequestBody HashMap<String, String> info) {
+        String campus = info.get("campus");
+        String colleague = info.get("colleague");
+        String department = info.get("department");
+        String major = info.get("major");
 
-    @GetMapping("/search.major")
-    @PreAuthorize(value = "hasAuthority('course:read')")
-    public String lectureListbyMajor(@RequestParam Major major_name, Model model) {
-        List<Lecture> lectureList = searchService.findByMajor(major_name);
-        model.addAttribute("lectureList", lectureList);
-        return null;
+        try {
+            if (Strings.isNullOrEmpty(major)) {
+                return ResponseEntity.ok(searchService.findByDepartment(campus, colleague, department));
+            } else {
+                return ResponseEntity.ok(searchService.findByMajor(campus, colleague, department, major));
+            }
+        } catch (IllegalStateException | NoSuchElementException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     /**
@@ -72,7 +80,6 @@ public class SearchController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 
     /**
      * 선택된 캠퍼스, 대학, 학과를 기반으로 해당되는 전공 정보 전송

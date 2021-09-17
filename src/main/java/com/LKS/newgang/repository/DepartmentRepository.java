@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
     List<Department> findByColleague(Colleague colleague);
-
     Optional<Department> findByColleagueAndDepartmentName(Colleague colleague, String departmentName);
 
 }

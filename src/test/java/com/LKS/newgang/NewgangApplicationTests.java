@@ -29,8 +29,6 @@ class NewgangApplicationTests {
 
     @Autowired
     private EnrolmentService enrolmentService;
-    @Autowired
-    private SearchRepository searchRepository;
 
     @Autowired
     private CampusRepository campusRepository;
@@ -125,11 +123,11 @@ class NewgangApplicationTests {
             fail("비어있어야함");
     }
 
-    @Test
+    /*@Test
     void 과목검색테스트() {
         assertThat(searchService.findByMajor(majorRepository.findById(24).orElseThrow()).size()).isEqualTo(1);
         assertThat(searchService.findByDepartment(departmentRepository.findById(1).orElseThrow()).size()).isEqualTo(3);
-    }
+    }*/
 
     @Test
     void 소망가방담기(){
@@ -289,6 +287,183 @@ class NewgangApplicationTests {
     void major(){
         for (Major major : majorRepository.findAll()) {
             System.out.println(major.getMajorName());
+        }
+    }
+
+    @Test
+    void 학과로강의찾기(){
+        byDept_TC01();
+        byDept_TC02();
+        byDept_TC03();
+        byDept_TC04();
+        byDept_TC05();
+        byDept_TC06();
+        byDept_TC07();
+    }
+
+    @Test
+    void byDept_TC01(){
+        List<Lecture> byDepartment = searchService.findByDepartment("수원주간", "소프트웨어경영대학", "컴퓨터공학부");
+        assertThat(byDepartment.size()).isEqualTo(3);
+    }
+
+    @Test
+    void byDept_TC02(){
+        try {
+            List<Lecture> byDepartment = searchService.findByDepartment("수원야간", "소프트웨어경영대학", "컴퓨터공학부");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byDept_TC03(){
+        try {
+            List<Lecture> byDepartment = searchService.findByDepartment("05123", "소프트웨어경영대학", "컴퓨터공학부");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byDept_TC04(){
+        try {
+            List<Lecture> byDepartment = searchService.findByDepartment("수원주간", "없는대학", "컴퓨터공학부");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byDept_TC05(){
+        try {
+            List<Lecture> byDepartment = searchService.findByDepartment("수원주간", "601294", "컴퓨터공학부");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+    
+    @Test
+    void byDept_TC06(){
+        try {
+            List<Lecture> byDepartment = searchService.findByDepartment("수원주간", "소프트웨어경영대학", "없는학과");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byDept_TC07(){
+        try {
+            List<Lecture> byDepartment = searchService.findByDepartment("수원주간", "소프트웨어경영대학", "681928");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void 강의전공으로찾기(){
+        byMajor_TC01();
+        byMajor_TC02();
+        byMajor_TC03();
+        byMajor_TC04();
+        byMajor_TC05();
+        byMajor_TC06();
+        byMajor_TC07();
+        byMajor_TC08();
+        byMajor_TC09();
+    }
+
+    @Test
+    void byMajor_TC01(){
+        List<Lecture> byMajor = searchService.findByMajor("수원주간", "인문대학", "글로벌어문학부", "독어독문전공");
+        assertThat(byMajor.size()).isEqualTo(1);
+    }
+
+    @Test
+    void byMajor_TC02(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("없는캠퍼스", "인문대학", "글로벌어문학부", "독어독문전공");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    @Test
+    void byMajor_TC03(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("6124", "인문대학", "글로벌어문학부", "독어독문전공");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byMajor_TC04(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("수원주간", "없는대학", "글로벌어문학부", "독어독문전공");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byMajor_TC05(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("수원주간", "1621", "글로벌어문학부", "독어독문전공");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byMajor_TC06(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("수원주간", "인문대학", "없는학과", "독어독문전공");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byMajor_TC07(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("수원주간", "인문대학", "16123", "독어독문전공");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byMajor_TC08(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("수원주간", "인문대학", "글로벌어문학부", "없는전공");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    void byMajor_TC09(){
+        try {
+            List<Lecture> byMajor = searchService.findByMajor("수원주간", "인문대학", "글로벌어문학부", "16231");
+            fail("왜 예외 안던짐?");
+        } catch (Exception e) {
+
         }
     }
 

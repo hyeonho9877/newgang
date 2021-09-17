@@ -19,19 +19,28 @@ import java.util.stream.Collectors;
 public class SearchService {
 
     @Autowired
-    private final SearchRepository searchRepository;
     private final StudentRepository studentRepository;
     private final CampusRepository campusRepository;
     private final ColleagueRepository colleagueRepository;
     private final DepartmentRepository departmentRepository;
     private final MajorRepository majorRepository;
+    private final LectureRepository lectureRepository;
 
-    public List<Lecture> findByDepartment(Department department) {
-        return searchRepository.findByDepartment(department);
+    public List<Lecture> findByDepartment(String campus, String colleague, String department) {
+        Campus targetCampus = campusRepository.findById(campus).orElseThrow();
+        Colleague targetColleague = colleagueRepository.findByCampusAndColleagueName(targetCampus, colleague).orElseThrow();
+        Department targetDept = departmentRepository.findByColleagueAndDepartmentName(targetColleague, department).orElseThrow();
+
+        return lectureRepository.findByDepartment(targetDept);
     }
 
-    public List<Lecture> findByMajor(Major major) {
-        return searchRepository.findByMajor(major);
+    public List<Lecture> findByMajor(String campus, String colleague, String department, String major) {
+        Campus targetCampus = campusRepository.findById(campus).orElseThrow();
+        Colleague targetColleague = colleagueRepository.findByCampusAndColleagueName(targetCampus, colleague).orElseThrow();
+        Department targetDept = departmentRepository.findByColleagueAndDepartmentName(targetColleague, department).orElseThrow();
+        Major targetMajor = majorRepository.findByDepartmentAndMajorName(targetDept, major).orElseThrow();
+
+        return lectureRepository.findByMajor(targetMajor);
     }
 
 
